@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Nexo Artista - El Sonido del Alma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        bronze: {
+                            light: '#d4af37',
+                            DEFAULT: '#aa7c11',
+                            dark: '#5a3d04',
+                            metallic: '#8a6421'
+                        }
+                    },
+                    boxShadow: {
+                        'metal': '0 10px 25px -5px rgba(0, 0, 0, 0.7), inset 0 2px 4px rgba(255,255,255,0.2)',
+                        'inner-dark': 'inset 0 4px 10px rgba(0, 0, 0, 0.9)'
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Estilos críticos para garantizar el bloqueo de scroll absoluto */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            inset: 0;
+            background-color: #0b0b0d;
+            font-family: 'Courier New', Courier, monospace; /* Toque industrial/búnker */
+        }
+        /* Efecto cepillado/metalizado para el marco y botones */
+        .metallic-texture {
+            background: linear-gradient(135deg, #a37c3f 0%, #5e441b 50%, #bd9a5f 100%);
+        }
+        .screen-overlay {
+            background: linear-gradient(180deg, rgba(11,11,13,0.3) 0%, rgba(11,11,13,0.8) 100%);
+        }
+    </style>
+</head>
+<body class="select-none text-gray-200">
+
+    <div id="app-viewport" class="fixed inset-0 w-full h-full p-4 md:p-6 flex items-center justify-center overflow-hidden">
+        
+        <div class="relative w-full h-full rounded-xl p-3 md:p-4 metallic-texture shadow-2xl flex items-center justify-center border border-bronze-light/30">
+            
+            <div class="relative w-full h-full bg-[#0d0e12] rounded-lg overflow-hidden flex flex-col md:flex-row shadow-inner-dark border border-black/60">
+                
+                <div id="artist-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out z-0 scale-105 filter brightness-[0.4] contrast-[1.1]"></div>
+                <div class="absolute inset-0 screen-overlay z-10 pointer-events-none"></div>
+
+                <div id="loading-overlay" class="absolute inset-0 bg-[#0d0e12] z-50 flex flex-col items-center justify-center transition-opacity duration-500">
+                    <div class="w-12 h-12 border-4 border-bronze animate-spin border-t-transparent rounded-full mb-4"></div>
+                    <p class="text-bronze-light tracking-widest text-sm uppercase">Sincronizando con Nave-Pom-Pom...</p>
+                </div>
+
+                <div class="relative w-full h-full z-20 flex flex-col md:flex-row p-4 md:p-8 justify-between gap-6">
+                    
+                    <div class="flex md:flex-col justify-center items-center gap-4 md:gap-6 z-30 order-2 md:order-1">
+                        <button onclick="handleNav('music')" class="w-12 h-12 md:w-16 md:h-16 rounded-full metallic-texture text-black flex items-center justify-center shadow-metal hover:brightness-125 active:scale-95 transition-all border border-black/40 group">
+                            <i data-lucide="disc" class="w-6 h-6 md:w-8 md:h-8 stroke-[2]"></i>
+                        </button>
+                        <button onclick="handleNav('calendar')" class="w-12 h-12 md:w-16 md:h-16 rounded-full metallic-texture text-black flex items-center justify-center shadow-metal hover:brightness-125 active:scale-95 transition-all border border-black/40">
+                            <i data-lucide="calendar" class="w-6 h-6 md:w-8 md:h-8 stroke-[2]"></i>
+                        </button>
+                        <button onclick="handleNav('gallery')" class="w-12 h-12 md:w-16 md:h-16 rounded-full metallic-texture text-black flex items-center justify-center shadow-metal hover:brightness-125 active:scale-95 transition-all border border-black/40">
+                            <i data-lucide="camera" class="w-6 h-6 md:w-8 md:h-8 stroke-[2]"></i>
+                        </button>
+                        <button onclick="handleNav('epk')" class="w-12 h-12 md:w-16 md:h-16 rounded-full metallic-texture text-black flex items-center justify-center shadow-metal hover:brightness-125 active:scale-95 transition-all border border-black/40">
+                            <i data-lucide="sliders" class="w-6 h-6 md:w-8 md:h-8 stroke-[2]"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex-1 flex flex-col justify-between items-center md:items-end text-center md:text-right h-full py-4 order-1 md:order-2">
+                        
+                        <div class="max-w-2xl select-text mt-4 md:mt-12">
+                            <h1 id="artist-title" class="text-3xl md:text-6xl font-extrabold tracking-tighter uppercase text-stone-100 drop-shadow-[0_5px_5px_rgba(0,0,0,0.9)] leading-none">
+                                </h1>
+                            <div class="flex items-center justify-center md:justify-end gap-3 mt-2 text-bronze-light tracking-widest text-xs md:text-sm font-bold">
+                                <span id="artist-subtitle" class="uppercase"></span>
+                                <span class="h-px w-8 bg-bronze"></span>
+                                <span id="booking-tag" class="uppercase">BOOKING OPEN</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full max-w-xl flex flex-col sm:flex-row items-center justify-end gap-6 mt-auto">
+                            
+                            <div class="hidden sm:flex items-center gap-3 bg-black/80 border border-bronze/30 p-2 rounded-lg shadow-xl backdrop-blur-sm w-64">
+                                <div class="relative w-20 h-12 bg-stone-900 rounded overflow-hidden flex items-center justify-center border border-stone-700">
+                                    <i data-lucide="play" class="w-5 h-5 text-bronze-light fill-bronze-light"></i>
+                                </div>
+                                <div class="flex-1 text-left overflow-hidden">
+                                    <p class="text-[10px] text-bronze-light font-bold tracking-wider uppercase">Live Performance</p>
+                                    <p id="track-name" class="text-xs truncate font-mono text-stone-400">Cargando track...</p>
+                                </div>
+                            </div>
+
+                            <button onclick="handleNav('booking')" class="relative w-32 h-32 md:w-40 md:h-40 rounded-full metallic-texture text-black p-1 shadow-metal hover:scale-105 active:scale-95 transition-all flex items-center justify-center border-2 border-black/50 group z-30">
+                                <div class="w-full h-full rounded-full border border-dashed border-black/40 flex flex-col items-center justify-center p-2 text-center">
+                                    <i data-lucide="handshake" class="w-8 h-8 md:w-10 md:h-10 stroke-[1.5] mb-1"></i>
+                                    <span class="text-xs md:text-sm font-black tracking-tighter uppercase leading-none">RESERVA<br>DIRECTA</span>
+                                </div>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // MOCK DATA: Representación exacta de la estructura de la base de datos 'Nave-Pom-Pom'
+        const mockDatabase = {
+            naves: [
+                {
+                    id: 1,
+                    perfil_slug: "elias-blues",
+                    content: {
+                        titulo_principal: "El Sonido del Alma: Elias' Blues Reactor",
+                        subtitulo: "Electronic Press Kit",
+                        bg_image: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?q=80&w=1920&auto=format&fit=crop", // Foto conceptual de blues/concierto en búnker
+                        live_track_name: "Blues Reactor - Live Session 2026",
+                        contacto_booking: "booking@eliasblues.com"
+                    }
+                }
+            ]
+        };
+
+        // Resolución del tenant mediante captura del Slug en URL
+        function getTenantSlug() {
+            const params = new URLSearchParams(window.location.search);
+            // Si no viene por parámetro (?artist=elias-blues), defaultea al exigido por la directiva
+            return params.get('artist') || 'elias-blues';
+        }
+
+        // Inicialización y Mapeo del Frontend
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentSlug = getTenantSlug();
+            
+            // Simulación de consulta: SELECT * FROM naves WHERE perfil_slug = currentSlug LIMIT 1
+            const naveData = mockDatabase.naves.find(nave => nave.perfil_slug === currentSlug);
+
+            if (naveData) {
+                // Desestructuración segura del objeto JSONB 'content'
+                const { titulo_principal, subtitulo, bg_image, live_track_name } = naveData.content;
+
+                // Inyección Directa en el Frontend (Cero data estática)
+                document.getElementById('artist-title').innerText = titulo_principal;
+                document.getElementById('artist-subtitle').innerText = subtitulo;
+                document.getElementById('artist-bg').style.backgroundImage = `url('${bg_image}')`;
+                document.getElementById('track-name').innerText = live_track_name;
+            } else {
+                // Fallback elegante en caso de inquilino inexistente
+                document.getElementById('artist-title').innerText = "Nave No Identificada";
+                document.getElementById('artist-subtitle').innerText = "404 Epk System";
+            }
+
+            // Inicializar los íconos de Lucide incorporados dinámicamente
+            lucide.createIcons();
+
+            // Apagar la pantalla de carga con delay controlado para transición suave
+            setTimeout(() => {
+                const overlay = document.getElementById('loading-overlay');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+            }, 600);
+        });
+
+        // Controlador de Navegación/Acciones de la botonera metálica
+        function handleNav(section) {
+            console.log(`Ejecutando ruteo interno para sección: ${section}`);
+            // Aquí se conectan los disparadores de modales o vistas internas manteniendo el Anti-Scroll
+            alert(`Navegando a: ${section.toUpperCase()} (Mantenimiento de arquitectura App-Like de pantalla fija)`);
+        }
+    </script>
+</body>
+</html>
+
