@@ -46,7 +46,7 @@
                 <div id="artist-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-700 ease-in-out z-0 scale-100 filter brightness-[0.25] contrast-[1.15]"></div>
                 <div class="absolute inset-0 screen-overlay z-10 pointer-events-none"></div>
 
-                <div id="bunker-modal" class="absolute inset-x-4 top-4 bottom-36 panel-bunker rounded-xl z-40 opacity-0 pointer-events-none transition-all duration-300 transform scale-95 flex flex-col shadow-2xl">
+                <div id="bunker-modal" class="absolute inset-x-4 top-4 bottom-32 panel-bunker rounded-xl z-40 opacity-0 pointer-events-none transition-all duration-300 transform scale-95 flex flex-col shadow-2xl">
                     <div class="flex items-center justify-between border-b border-bronze/20 p-3 bg-black/40">
                         <div class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-bronze animate-ping"></span>
@@ -102,7 +102,7 @@
 
                     <div class="relative w-24 h-24 rounded-xl overflow-hidden bg-black border-2 border-bronze shadow-metal cursor-pointer mr-2" onclick="toggleVideoMute()">
                         <video id="mini-reactor-video" class="w-full h-full object-cover brightness-90 contrast-115" autoplay loop muted playsinline>
-                            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-32128-large.mp4" type="video/mp4">
+                            <source src="Joel video.mp4" type="video/mp4">
                         </video>
                         <div id="video-sound-indicator" class="absolute bottom-1 left-1 bg-black/70 px-1 py-0.5 rounded text-[7px] font-bold text-bronze-light flex items-center gap-0.5 border border-bronze/30">
                             <i data-lucide="volume-x" class="w-2 h-2" id="sound-icon"></i>
@@ -177,25 +177,6 @@
                 document.getElementById('video-sound-indicator').classList.add('border-bronze/30', 'text-bronze-light');
             }
             lucide.createIcons();
-        }
-
-        function openModal(section) {
-            const modal = document.getElementById('bunker-modal');
-            const title = document.getElementById('modal-title');
-            const content = document.getElementById('modal-content');
-            
-            if (sectionsData[section]) {
-                title.innerHTML = sectionsData[section].title;
-                content.innerHTML = sectionsData[section].html;
-                modal.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
-                modal.classList.add('opacity-100', 'scale-100');
-            }
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('bunker-modal');
-            modal.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
-            modal.classList.remove('opacity-100', 'scale-100');
         }
 
         document.addEventListener("DOMContentLoaded", () => {
