@@ -1,31 +1,56 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="h-full">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEXO-ARTISTA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEXO | ELIAS BLUES REACTOR</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #0b0b0d; color: #d4af37; font-family: 'Courier New', Courier, monospace; }
-        .nave-box { border: 2px solid #5e441b; background: linear-gradient(180deg, #141519 0%, #0c0d10 100%); }
+        @import url('https://fonts.googleapis.com/css2?family=Courier+New&display=swap');
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 0; width: 100vw; height: 100vh; overflow: hidden; position: fixed; background: #0b0b0d; font-family: 'Courier New', monospace; }
+        
+        .marco-bronce { 
+            position: absolute; inset: 20px; border: 8px solid #b87333; 
+            background: linear-gradient(to bottom, #1a1a1a, #000);
+            box-shadow: inset 0 0 50px rgba(0,0,0,1), 0 0 20px rgba(184, 115, 51, 0.2);
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+        }
+
+        .boton-bronce {
+            width: 60px; height: 60px; border: 2px solid #b87333;
+            background: #2a2a2a; color: #b87333; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        .boton-bronce:active { background: #b87333; color: #000; transform: scale(0.9); }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center h-screen p-4">
+<body>
 
-    <div class="nave-box w-full max-w-md p-6 rounded-xl shadow-2xl text-center">
-        <h1 class="text-2xl font-black uppercase tracking-tighter mb-4 text-yellow-600">NEXO-ARTISTA</h1>
-        
-        <div class="overflow-hidden rounded-lg border border-yellow-700 mb-6">
-            <video width="100%" autoplay loop muted playsinline>
+    <div class="marco-bronce">
+        <div class="absolute inset-0 opacity-40">
+            <video class="w-full h-full object-cover" autoplay loop muted playsinline>
                 <source src="Joel-video.mp4" type="video/mp4">
             </video>
         </div>
 
-        <div class="grid grid-cols-2 gap-4">
-            <button class="bg-yellow-700 text-black font-bold py-2 px-4 rounded">MÚSICA</button>
-            <button class="bg-yellow-700 text-black font-bold py-2 px-4 rounded">GIRA</button>
-            <button class="bg-yellow-700 text-black font-bold py-2 px-4 rounded">BIO</button>
-            <button class="bg-yellow-700 text-black font-bold py-2 px-4 rounded">RESERVA</button>
+        <div class="absolute left-10 flex flex-col gap-6 z-20">
+            <button class="boton-bronce">DISC</button>
+            <button class="boton-bronce">CAL</button>
+            <button class="boton-bronce">CAM</button>
+            <button class="boton-bronce">AMP</button>
+        </div>
+
+        <div class="absolute right-10 bottom-10 z-20">
+            <button class="w-32 h-32 rounded-full border-4 border-[#b87333] bg-black text-[#b87333] font-black uppercase text-center text-xs flex items-center justify-center shadow-[0_0_15px_#b87333]">
+                RESERVA<br>DIRECTA
+            </button>
+        </div>
+
+        <div class="absolute right-10 top-10 text-right z-20 text-[#b87333]">
+            <h1 class="text-4xl font-black uppercase italic">EL SONIDO DEL ALMA</h1>
+            <p class="text-lg uppercase">ELIAS' BLUES REACTOR</p>
         </div>
     </div>
 
