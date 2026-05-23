@@ -2,17 +2,25 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>NAVE Nexo_Arquetipo ARTISTA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXO-ARTISTA</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; position: fixed; background-color: #0b0b0d; font-family: 'Courier New', Courier, monospace; }
-        .metallic-texture { background: linear-gradient(135deg, #bd9a5f 0%, #5e441b 45%, #a37c3f 70%, #463211 100%); border: 1px solid rgba(212,175,55,0.4); }
-        .panel-bunker { background: linear-gradient(180deg, #141519 0%, #0c0d10 100%); border: 2px solid #5e441b; }
-        .shadow-metal { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.8); }
+        body { background-color: #000; color: white; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .nave-container { width: 90%; max-width: 400px; border: 2px solid #b7791f; padding: 20px; border-radius: 15px; text-align: center; }
     </style>
 </head>
-<body class="select-none text-gray-200">
+<body>
 
-    <div id="app-viewport" class="fixed inset-0 w-full h-full p-3 flex items
+    <div class="nave-container">
+        <h1 class="text-2xl font-bold text-yellow-600 mb-4">NEXO-ARTISTA</h1>
+        <p class="mb-6">SISTEMA ACTIVO</p>
+        
+        <video width="100%" controls autoplay loop muted playsinline class="rounded-lg">
+            <source src="Joel-video.mp4" type="video/mp4">
+            Tu navegador no soporta el video.
+        </video>
+    </div>
+
+</body>
+</html>
